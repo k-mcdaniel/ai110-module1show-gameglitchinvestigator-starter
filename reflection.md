@@ -33,15 +33,14 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 ## 4. What did you learn about Streamlit and state?
 
-- In your own words, explain why the secret number kept changing in the original app.
-- How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
-- What change did you make that finally gave the game a stable secret number?
+- In your own words, explain why the secret number kept changing in the original app. Every time a user interacts with a Streamlit app (clicking a button, typing in a field), Streamlit reruns the entire Python script from top to bottom. Without session state, any variable defined in the script would be reassigned a new random value on every rerun.
+- How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit? Imagine every time you click a button on a webpage, the entire page reloads from scratch and forgets everything. Streamlit works that way — it reruns the whole script on every action. Session state is like a sticky notepad that survives those reruns, so variables you store there don't get wiped.
+- What change did you make that finally gave the game a stable secret number? The `if "secret" not in st.session_state` guard at the top of `app.py` — it only generates a new secret the first time the app loads, and skips it on every rerun after that.
 
 ---
 
 ## 5. Looking ahead: your developer habits
 
-- What is one habit or strategy from this project that you want to reuse in future labs or projects?
-  - This could be a testing habit, a prompting strategy, or a way you used Git.
-- What is one thing you would do differently next time you work with AI on a coding task?
-- In one or two sentences, describe how this project changed the way you think about AI generated code.
+- What is one habit or strategy from this project that you want to reuse in future labs or projects? Always ask the AI to prioritize which issues are critical before diving into fixes. In this project, getting Claude to separate game-breaking bugs from minor ones saved time and kept the focus on what actually mattered.
+- What is one thing you would do differently next time you work with AI on a coding task? Read every diff before accepting it. Even when the AI is correct, understanding each change line by line makes it easier to explain and defend your own code.
+- In one or two sentences, describe how this project changed the way you think about AI generated code. AI-generated code looks clean and confident, but can have subtle logic bugs that aren't obvious until you run the game. You still need to be the one testing and verifying — the AI is a fast first draft, not a finished product.
