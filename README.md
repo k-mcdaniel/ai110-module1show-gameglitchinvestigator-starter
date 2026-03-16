@@ -25,13 +25,24 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+**Game purpose:** A number guessing game where the player tries to guess a secret number within a limited number of attempts. The game gives directional hints after each guess and tracks a score.
+
+**Bugs found:**
+- The hint messages were inverted "Too High" told the player to go higher, and "Too Low" told them to go lower, the opposite of what they should do.
+- On every even-numbered attempt, the secret was converted to a string before comparison, causing alphabetical ordering instead of numeric (e.g. `"9" > "47"` = true alphabetically but false numerically).
+- Starting a new game did not reset `session_state.status`, so the win/loss screen persisted and blocked the new game.
+
+**Fixes applied:**
+- Swapped the hint messages in `check_guess` so each direction points correctly.
+- Removed the even/odd string conversion in `app.py` so the secret is always compared as an integer.
+- Refactored `check_guess`, `parse_guess`, `update_score`, and `get_range_for_difficulty` into `logic_utils.py` to separate game logic from UI code.
+- Added 6 pytest tests in `tests/test_game_logic.py` to verify the fixes, including regression tests targeting each specific bug.
 
 ## 📸 Demo
 
-- [ ] [Insert a screenshot of your fixed, winning game here]
+![Fixed winning game](image-1.png)
+
+![Pytest results - 6 passed](image.png)
 
 ## 🚀 Stretch Features
 
